@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <title>Video Streaming Demonstration</title>
+  </head>
+  <body>
+    <img src="{{ url_for('video_feed') }}" onclick="showCoords(event)">
+
+    <script>
+      function showCoords(event) {
+        var cX = event.clientX;
+        var sX = event.screenX;
+        var cY = event.clientY;
+        var sY = event.screenY;
+        //var coords1 = "client - X: " + cX + ", Y coords: " + cY;
+        var coords2 = "{\n \"x\": \""+ sX + "\", \n \"y\":\"" + sY + "\"\n}";
+        console.log(coords2);
+        var url = "http://localhost:5000/json-pos";
+        var method = "POST";
+        //var postData = coords2;
+        var shouldBeAsync = true;
+        var xhr = new XMLHttpRequest();
+        xhr.open(method, url, shouldBeAsync);
+        xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+        var obj = { x: cX, y: cY};
+        var myJSON = JSON.stringify(obj);
+        console.log(myJSON);
+        xhr.send(myJSON);
+      }
+    </script>
+  </body>
+</html>
+
