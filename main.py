@@ -3,6 +3,7 @@ from flask import Flask, render_template, Response, request
 import cv2
 x = None
 y = None
+megj = True
 
 class VideoCamera(object):
     def __init__(self):
@@ -27,12 +28,6 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-#@app.route('/test', methods=['POST'])
-#def test():
-#    data = request.data
-#    print(data)
-#    #return jsonify(data)
-
 
 def gen(VideoCamera):
     while True:
@@ -41,14 +36,23 @@ def gen(VideoCamera):
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
 @app.route('/json-pos', methods=['POST']) 
-def json_example():
+def jsons():
     req_data = request.get_json()
     print(req_data)
     global x, y
     x = req_data['x']
     y = req_data['y']
-    #print(req_data['x'], req_data['y'])
-    return 'Todo...'
+    print(x,y)
+    return "1"
+
+@app.route('/szinezes', methods=['POST']) 
+def jsons2():
+    req_data = request.get_json()
+    print(req_data)
+    global megj
+    megj = req_data['megj']
+    print(megj)
+    return "1" 
 
 @app.route('/video_feed')
 def video_feed():
