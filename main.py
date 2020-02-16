@@ -28,6 +28,12 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+#@app.route('/test', methods=['POST'])
+#def test():
+#    data = request.data
+#    print(data)
+#    #return jsonify(data)
+
 
 def gen(VideoCamera):
     while True:
